@@ -28,4 +28,5 @@ namespace HelloApp
             optionsBuilder.UseSqlite("Data Source=D:\\helloapp.db");
         }
     }
+    //
 }
