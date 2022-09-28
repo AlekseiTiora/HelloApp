@@ -4,7 +4,7 @@
 
 namespace HelloApp.Migrations
 {
-    public partial class Migration : Migration
+    public partial class uwu : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace HelloApp.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    user_id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Age = table.Column<int>(type: "INTEGER", nullable: false),
@@ -21,7 +21,7 @@ namespace HelloApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.user_id);
                 });
         }
 

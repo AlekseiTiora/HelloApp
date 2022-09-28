@@ -3,14 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 
-using (ApplicationContext db = new ApplicationContext())
+public class ApplicationContext : DbContext
 {
-    var users = db.Users.ToList();
-    Console.WriteLine("Список пользователей:");
-    foreach (User u in users)
+    public DbSet<User> Users { get; set; } = null!;
+    public ApplicationContext()
     {
-        Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}- {u.Gender}");
+        Database.EnsureDeleted();
+        Database.EnsureCreated();
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=helloapp2.db");
     }
 }
-
-
