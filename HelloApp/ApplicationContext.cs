@@ -6,47 +6,36 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class User
-{
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public int Age { get; set; }
-    // навигационное свойство
-    public Company? Company { get; set; }
-}
-[NotMapped]
-public class Company
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-}
+
 
 namespace HelloApp
 {
-    public class ApplicationContext : DbContext
+
+    public class Company
     {
-
-        public DbSet<User> Users { get; set; } = null!;
-        public ApplicationContext()
-        {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=helloapp.db");
-        }
-
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public List<User> Users { get; set; } = new();
     }
+
     public class User
     {
         public int Id { get; set; }
         public string? Name { get; set; }
         public int Age { get; set; }
-        public string? Gender { get; set; }
-        public string? Position { get; set; }
+        public int CompanyId { get; set; }
         public Company? Company { get; set; }
     }
+    public class ApplicationContext : DbContext
+    {
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Company> Companies { get; set; } = null!;
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
+        }
+    }
 }

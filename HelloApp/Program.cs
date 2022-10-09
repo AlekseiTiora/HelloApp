@@ -1,18 +1,18 @@
 ﻿using HelloApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Data.Sqlite;
+using System.Data.SqlClient;
 
-
-public class ApplicationContext : DbContext
+using (ApplicationContext db = new ApplicationContext())
 {
-    public DbSet<User> Users { get; set; } = null!;
-    public ApplicationContext()
+    SqlParameter param = new()
     {
-        Database.EnsureDeleted();
-        Database.EnsureCreated();
-    }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=helloapp2.db");
-    }
+        ParameterName = "@userName",
+        SqlDbType = System.Data.SqlDbType.VarChar,
+        Direction = System.Data.ParameterDirection.Output,
+        Size = 50
+    };
+    db.Database.ExecuteSqlRaw("GetUserWithMaxAge @userName OUT", param);
+    Console.WriteLine(param.Value);
 }

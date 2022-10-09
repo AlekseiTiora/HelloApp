@@ -5,16 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 
 
 namespace HelloApp
 {
-    /*public partial class User
+   /*public class Company
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public List<User> Users { get; set; } = new();
+    }
+
+    public class User
     {
         public int Id { get; set; }
         public string? Name { get; set; }
         public int Age { get; set; }
-        public string? Gender { get; set; }
-        public string? Position { get; set; }   // Новое свойство - должность пользователя
+        public int CompanyId { get; set; }
+        public Company? Company { get; set; }
     }*/
 }
